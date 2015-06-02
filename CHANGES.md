@@ -1,5 +1,10 @@
 # Unreleased
 
+- [BREAKING CHANGE] Hostname verification and certificate chain
+  validation are now enabled by default. To disable these additional
+  checks when the client connects to the database,
+  `disableSSLAuthentication(true)` can be called on the `ConnectOptions`
+  object passed to the `CloudantClient` constructor.
 - [FIX] Fixed handling of non-ASCII characters when the platform's
   default charset is not UTF-8.
 - [FIX] Fixed encoding of `+`, `=` and `&` characters when they are used
