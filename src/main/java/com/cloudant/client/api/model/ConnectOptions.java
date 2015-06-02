@@ -11,7 +11,7 @@ public class ConnectOptions {
 	
 	private String proxyHost ;
 	private int proxyPort ;
-	private boolean disableSSLAuthentication;
+	private boolean isSSLAuthenticationDisabled;
 	
 	public ConnectOptions(){
 		// default constructor
@@ -48,7 +48,7 @@ public class ConnectOptions {
 	 * @return the updated {@link ConnectOptions} object.
 	 * @see #isSSLAuthenticationDisabled */
 	public ConnectOptions disableSSLAuthentication(boolean disabled) {
-		this.disableSSLAuthentication = disabled;
+		this.isSSLAuthenticationDisabled = disabled;
 		return this;
 	}
 
@@ -76,7 +76,7 @@ public class ConnectOptions {
 	 *  set to disabled or false otherwise.
 	 *  @see #disableSSLAuthentication(boolean) */
 	public boolean isSSLAuthenticationDisabled() {
-		return disableSSLAuthentication;
+		return isSSLAuthenticationDisabled;
 	}
 
 }
