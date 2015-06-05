@@ -1,5 +1,6 @@
 # Unreleased
 
+- [FIX] Fixed querying of next/previous page in a descending view.
 - [NEW] New API for deleting databases, `CloudantClient.deleteDB(String name)`
 - [Deprecated] Deprecated `CloudantClient.deleteDB(String name, String confirm)`
   API.
