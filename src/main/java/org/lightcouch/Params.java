@@ -16,68 +16,102 @@
 
 package org.lightcouch;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Query parameters to append to find requests.
- * <p>Example: 
+ * <p>Example:
  * <pre>
  * dbClient.find(Foo.class, "doc-id", new Params().revsInfo().attachments());
  * </pre>
+ *
+ * @author Ahmed Yehia
  * @see CouchDatabaseBase#find(Class, String, Params)
  * @since 0.0.6
- * @author Ahmed Yehia
- * 
  */
 public class Params {
 
-	private List<String> params = new ArrayList<String>();
+    private List<Param> params = new ArrayList<Param>();
 
-	public Params revsInfo() {
-		params.add("revs_info=true");
-		return this;
-	}
+    public Params revsInfo() {
+        params.add(new Param("revs_info", true));
+        return this;
+    }
 
-	public Params attachments() {
-		params.add("attachments=true");
-		return this;
-	}
+    public Params attachments() {
+        params.add(new Param("attachments", true));
+        return this;
+    }
 
-	public Params revisions() {
-		params.add("revs=true");
-		return this;
-	}
+    public Params revisions() {
+        params.add(new Param("revs", true));
+        return this;
+    }
 
-	public Params rev(String rev) {
-		params.add(String.format("rev=%s", rev));
-		return this;
-	}
+    public Params rev(String rev) {
+        params.add(new Param("rev", rev));
+        return this;
+    }
 
-	public Params conflicts() {
-		params.add("conflicts=true");
-		return this;
-	}
+    public Params conflicts() {
+        params.add(new Param("conflicts", true));
+        return this;
+    }
 
-	public Params localSeq() {
-		params.add("local_seq=true");
-		return this;
-	}
+    public Params localSeq() {
+        params.add(new Param("local_seq", true));
+        return this;
+    }
 
-	public Params addParam(String name, String value) {
-		try {
-			name = URLEncoder.encode(name, "UTF-8");
-			value = URLEncoder.encode(value, "UTF-8");
-			params.add(String.format("%s=%s", name, value));
-		} catch (UnsupportedEncodingException e) {
-			throw new IllegalArgumentException(e);
-		}
-		return this;
-	}
+    public Params addParam(String name, String value) {
+        params.add(new Param(name, value));
+        return this;
+    }
 
-	public List<String> getParams() {
-		return params.isEmpty() ? null : params;
-	}
+    public List<String> getParams() {
+        if (params.isEmpty()) {
+            return null;
+        }
+
+        List<String> result = new ArrayList<String>();
+        for (Param param : params) {
+            result.add(param.toURLEncodedString());
+        }
+        return result;
+    }
+
+    public int size() {
+        return params.size();
+    }
+
+    public Param get(int index) {
+        return params.get(index);
+    }
+
+    public void addAll(Params params) {
+        this.params.addAll(params.params);
+    }
+
+    /**
+     * If this object already contains a parameter whose name matches {@code name}, replace the
+     * existing value with {@code value} for the first instance of parameter {@code name}.
+     * Otherwise, add a parameter with the new {@code name} and {@code value}.
+     *
+     * @param name  The name of the parameter to replace/add.
+     * @param value The new value of the parameter.
+     */
+    public void replaceOrAdd(String name, String value) {
+        boolean found = false;
+        for (Param param : params) {
+            if (param.getKey().equals(name)) {
+                param.setValue(value);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            addParam(name, value);
+        }
+    }
 }
