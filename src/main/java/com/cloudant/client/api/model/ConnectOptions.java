@@ -7,6 +7,7 @@ public class ConnectOptions {
 
 	private int socketTimeout;
 	private int connectionTimeout ;
+	private int connectionRequestTimeout;
 	private int maxConnections ;
 	
 	private String proxyHost ;
@@ -24,6 +25,19 @@ public class ConnectOptions {
 	public ConnectOptions setConnectionTimeout(int connectionTimeout) {
 		this.connectionTimeout = connectionTimeout;
 		return this ;
+	}
+
+	/**
+	 * Sets the connection request timeout.
+	 * It determines how long to wait to get a connection request from a
+	 * connection request pool.
+	 * @param connectionRequestTimeout the desired timeout
+	 * @return the updated {@link ConnectOptions} object.
+	 * @see #getConnectionRequestTimeout()
+	 */
+	public ConnectOptions setConnectionRequestTimeout(int connectionRequestTimeout) {
+		this.connectionRequestTimeout = connectionRequestTimeout;
+		return this;
 	}
 
 	public ConnectOptions setMaxConnections(int maxConnections) {
@@ -47,6 +61,16 @@ public class ConnectOptions {
 
 	public int getConnectionTimeout() {
 		return connectionTimeout;
+	}
+
+	/**
+	 * Returns the connection request timeout.
+	 * It determines how long to wait to get a connection request from a
+	 * connection request pool.
+	 * @see #setConnectionRequestTimeout(int)
+	 */
+	public int getConnectionRequestTimeout() {
+		return connectionRequestTimeout;
 	}
 
 	public int getMaxConnections() {
