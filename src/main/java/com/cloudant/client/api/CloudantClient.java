@@ -490,6 +490,7 @@ public class CloudantClient {
         if (connectOptions != null) {
             props.setConnectionTimeout(connectOptions.getConnectionTimeout());
             props.setSocketTimeout(connectOptions.getSocketTimeout());
+            props.setConnectionRequestTimeout(connectOptions.getConnectionRequestTimeout());
             props.setMaxConnections(connectOptions.getMaxConnections());
 
             props.setProxyHost(connectOptions.getProxyHost());
