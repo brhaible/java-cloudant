@@ -205,7 +205,8 @@ public class CouchDbClient extends CouchDbClientBase {
                             .setCharset(Consts.UTF_8).build())
                     .setDefaultRequestConfig(RequestConfig.custom()
                             .setSocketTimeout(props.getSocketTimeout())
-                            .setConnectTimeout(props.getConnectionTimeout()).build())
+                            .setConnectTimeout(props.getConnectionTimeout())
+                            .setConnectionRequestTimeout(props.getConnectionRequestTimeout()).build())
                     .setDefaultSocketConfig(SocketConfig.custom()
                             .setSoTimeout(props.getSocketTimeout()).build());
             if (props.getProxyHost() != null) {
